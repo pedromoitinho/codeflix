@@ -1,0 +1,469 @@
+// Import external libraries
+@import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+@mixin center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin mobile {
+    @media (max-width: 768px), (hover: none) {
+        @content;
+    }
+}
+
+$primary-color: #00ffff; // Bright cyan
+$shadow-color: rgba(0, 0, 0, 0.2);
+$text-stroke: rgba(0, 0, 0, 0.3);
+$gradient-start: #1e3050;
+$gradient-end: #0a111c;
+$glass-bg: rgba(255, 255, 255, 0.1);
+$glass-border: rgba(255, 255, 255, 0.2);
+$accent-glow: rgba(0, 255, 255, 0.3);
+
+body {
+    margin: 0;
+    padding: 0;
+
+}
+
+section {
+    width: 100vw;
+    height: 150vh;
+    background: linear-gradient(360deg, $gradient-start, $gradient-end);
+    @media screen and (max-width:768px){
+        height:220dvh;
+        width:100dvw;
+    }
+    @media screen and (orientation:landscape) and (hover:none) and (pointer: coarse) {
+        height:800dvh;   
+    }
+    position: relative;
+    z-index: 1;
+    
+}
+
+.navBar {
+    width: 100vw;
+    height: 90px;
+    position: fixed;
+    display: flex;
+    justify-content: flex-start;
+    z-index: 1000; // Higher z-index to stay above blur effects
+    background: rgba(10, 17, 28, 0.8);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 30px $shadow-color;
+    border-bottom: 1px solid $glass-border;
+    transition: all 0.3s ease;
+    animation: slideInDown 0.5s ease-out;
+    
+    &:hover {
+        background-color: rgba($gradient-end, 0.7);
+    }
+}
+
+.navBarBrand {
+    width: 10vw;
+    height: 100px;
+    @include center;
+    transition: transform 0.3s ease;
+    
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+
+#icon {
+    font-size: 2.3rem;
+    color: aqua;
+    margin-left: 2rem;
+    -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.3));
+    
+    &:hover {
+        filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.5));
+        transform: scale(1.1);
+        
+    }
+}
+
+.navBarCenter {
+    position: absolute;
+    top: 0%;
+    left: 45%;
+    width: 10%;
+    height: 100px;
+    @include center;
+}
+.navBarEnd{
+    position:absolute;
+    top:0%;
+    @include center;
+    right:10%;
+    width:10%;
+    height:100px;
+}
+#contato{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    background: linear-gradient(135deg, #00ffff, #0099ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px $accent-glow;
+    letter-spacing: 2px;
+    font-size: 1.5rem;
+    text-decoration:none;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    
+    @media screen and (max-width:768px){
+        font-size:0.8rem;
+    }
+    
+    &:hover {
+        text-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+        transform: scale(1.1);
+        cursor:pointer;
+    }
+}
+
+#title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    background: linear-gradient(135deg, #00ffff, #0099ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px $accent-glow;
+    letter-spacing: 2px;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+ 
+    
+    &:hover {
+        text-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+        transform: scale(1.02);
+    }
+}
+
+.main {
+    width: 80vw;
+    height: 100vh;
+    position: absolute;
+    top: 12.5%;
+    left: 7.5%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 2rem;
+    padding: 1rem;
+    z-index: 2;
+    background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+    backdrop-filter: blur(10px);
+    border: 1px solid $glass-border;
+    border-radius: 24px;
+    box-shadow: 0 8px 32px $shadow-color;
+    animation: fadeIn 1s ease-out;
+
+    @media screen and (max-width:768px){
+        grid-template-columns: repeat(2,1fr);
+        grid-auto-rows: minmax(100px, auto); 
+        gap:1rem;
+        height: auto; 
+        overflow: visible;
+        top:7.5%;
+        left:5%;
+    }
+    @media screen and (min-width:769px) and (max-width:1000px){
+        top:10%;
+        left:7.5%;
+    }
+   
+
+    &:has(.videocont:hover) {
+        .videocont:not(:hover) {
+            transition-delay: 1.0s; // Add same delay to blur effect
+            filter: blur(4px) brightness(0.7);
+            transform: scale(0.95);
+        }
+        // Don't affect navbar
+      
+    }
+
+    @media (hover: none), (max-width: 768px) {
+        &:has(.videocont:hover) {
+            .videocont:not(:hover) {
+                filter: none;
+                transform: none;
+                transition-delay: 0s;
+            }
+        }
+    }
+
+    @include mobile {
+        gap: 1rem;
+        padding: 0.5rem;
+    }
+}
+
+.videocont {
+    background: $glass-bg;
+    backdrop-filter: blur(5px);
+    border-radius: 20px;
+    border: 1px solid $glass-border;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    animation: slideInUp 0.6s ease-out;
+    animation-fill-mode: both;
+    position: relative;
+    will-change: filter, transform;
+    cursor: pointer;
+
+    // When any videocont is hovered, blur all others
+    &:hover ~ .videocont {
+        filter: blur(4px) brightness(0.7);
+    }
+
+    // When parent contains a hovered element, blur non-hovered ones
+    .main:has(.videocont:hover) .videocont:not(:hover) {
+        filter: blur(4px) brightness(0.7);
+    }
+    
+    &:hover {
+        transition-delay: 1.0s; // Add 1 second delay before hover effect
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px $shadow-color;
+        z-index: 10;
+
+        &::after {
+            content: "▶";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 3rem;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+            opacity: 0.8;
+        }
+    }
+
+    @media (hover: none), (max-width: 768px) {
+        &:hover ~ .videocont {
+            filter: none;
+            transform: none;
+        }
+
+        &:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .main:has(.videocont:hover) .videocont:not(:hover) {
+            filter: none;
+            transform: none;
+        }
+    }
+
+    @include mobile {
+        border-radius: 12px;
+        animation: none; // Disable entrance animation
+        transform: translateZ(0); // Hardware acceleration
+        -webkit-tap-highlight-color: transparent; // Remove tap highlight
+        
+        &:active {
+            transform: scale(0.98);
+        }
+        
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translateZ(0);
+        }
+    }
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; // Better aspect ratio handling
+    border-radius: 16px;
+    border: 2px solid rgba($gradient-end, 0.6);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    backface-visibility: hidden;
+    will-change: transform, filter;
+    filter: brightness(0.95) contrast(1.1) saturate(1.1);
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+
+    
+    
+    
+    &:hover {
+        transform: scale(1.2);
+        z-index: 999;
+        border: 2px solid rgba($gradient-end, 0.8);
+        box-shadow: 
+            0 10px 20px $shadow-color,
+            0 0 30px $accent-glow;
+        cursor: pointer;
+        filter: brightness(1.1) contrast(1.2) saturate(1.2);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+    
+    @media screen and (max-width: 768px) {
+        object-fit: cover;
+        border-radius: 30px;
+        pointer-events:none;
+    }
+}
+
+// Add smooth scrolling
+html {
+    scroll-behavior: smooth;
+
+    @include mobile {
+        touch-action: manipulation; // Disable double-tap zoom
+        -webkit-text-size-adjust: 100%; // Prevent font scaling
+    }
+}
+
+// Add custom scrollbar
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #00ffff, #0099ff);
+    border-radius: 4px;
+}
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+
+    @include mobile {
+        padding: 0.5rem;
+        
+        .modal-content {
+            width: 100%;
+            margin: 0;
+            border-radius: 12px;
+        }
+        
+        .video-container {
+            border-radius: 8px;
+        }
+        
+        .close-btn {
+            padding: 1rem;
+        }
+    }
+}
+
+.modal-content {
+    background: rgba(30, 48, 80, 0.95);
+    padding: 2rem;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: scaleIn 0.3s ease;
+
+    h2 {
+        color: white;
+        margin-bottom: 1rem;
+        font-family: 'Poppins', sans-serif;
+    }
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+
+    iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+    }
+}
+
+.close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: scale(1.1);
+    }
+}
+
+.loading-skeleton {
+    @include mobile {
+        animation-duration: 2s; // Slower animation for better performance
+    }
+}
+
+// Reduce motion for better performance
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
