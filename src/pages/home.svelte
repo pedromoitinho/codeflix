@@ -1,21 +1,13 @@
 <script>
     import "./home.scss";
-<<<<<<< HEAD
     import { onMount, onDestroy } from 'svelte';
-=======
-    import { onMount } from 'svelte';
->>>>>>> b9821e56b7c79d66a69fbdb3ee4d6b7b101de462
 
     let showTrailer = false;
     let currentTrailer = null;
     let currentTitle = '';
-<<<<<<< HEAD
     let loading = true;
     let error = null;
 
-    // Cache for API responses
-    const cache = new Map();
-    const CACHE_TIME = 5 * 60 * 1000; // 5 minutes
     const JIKAN_URL = 'https://api.jikan.moe/v4';
     const RETRY_ATTEMPTS = 3;
     const RETRY_DELAY = 1000;
@@ -35,17 +27,6 @@
     }
 
     async function fetchAnimeImages(count) {
-        const cacheKey = `anime_${count}`;
-        
-        // Check cache first
-        if (cache.has(cacheKey)) {
-            const { data, timestamp } = cache.get(cacheKey);
-            if (Date.now() - timestamp < CACHE_TIME) {
-                return data;
-            }
-            cache.delete(cacheKey);
-        }
-
         try {
             loading = true;
             error = null;
@@ -57,8 +38,7 @@
             
             const { data } = await response.json();
             
-            // Process and cache the response
-            const processedData = data.map(anime => ({
+            return data.map(anime => ({
                 image: anime.images.jpg.large_image_url,
                 trailer: {
                     id: anime.trailer?.youtube_id,
@@ -66,13 +46,6 @@
                 },
                 title: anime.title_english || anime.title
             }));
-
-            cache.set(cacheKey, {
-                data: processedData,
-                timestamp: Date.now()
-            });
-
-            return processedData;
         } catch (err) {
             error = 'Failed to fetch anime data';
             console.error('Error:', err);
@@ -82,152 +55,40 @@
         }
     }
 
-    // Debounced trailer opening
-    let timeoutId;
     function openTrailer(trailer, title) {
-        if (timeoutId) clearTimeout(timeoutId);
-        
         if (!trailer?.id) {
             error = `No trailer available for ${title}`;
             return;
         }
         
-        timeoutId = setTimeout(() => {
-            showTrailer = true;
-            currentTrailer = trailer.id;
-            currentTitle = title;
-        }, 300);
+        showTrailer = true;
+        currentTrailer = trailer.id;
+        currentTitle = title;
     }
 
     function closeTrailer() {
-        if (timeoutId) clearTimeout(timeoutId);
-=======
-
-    const ANILIST_URL = 'https://graphql.anilist.co';
-    const imageCache = new Map();
-
-    async function fetchAnimeImages(count) {
-        const query = `
-            query ($page: Int, $perPage: Int) {
-                Page(page: $page, perPage: $perPage) {
-                    media(type: ANIME, sort: POPULARITY_DESC) {
-                        coverImage {
-                            extraLarge
-                        }
-                        trailer {
-                            id
-                            site
-                            thumbnail
-                        }
-                        title {
-                            english
-                            native
-                        }
-                    }
-                }
-            }
-        `;
-
-        try {
-            const response = await fetch(ANILIST_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    query,
-                    variables: {
-                        page: Math.floor(Math.random() * 10) + 1,
-                        perPage: count
-                    }
-                })
-            });
-
-            const { data } = await response.json();
-            return data.Page.media.map(m => ({
-                image: m.coverImage.extraLarge,
-                trailer: m.trailer,
-                title: m.title.english || m.title.native
-            }));
-        } catch (error) {
-            console.error('Error fetching data:', error);
-            return [];
-        }
-    }
-
-    function openTrailer(trailer, title) {
-        if (!trailer) {
-            alert(`No trailer available for ${title}`);
-            return;
-        }
-        
-        if (trailer.site === 'youtube') {
-            currentTrailer = trailer.id;
-            currentTitle = title;
-            showTrailer = true;
-        }
-    }
-
-    function closeTrailer() {
->>>>>>> b9821e56b7c79d66a69fbdb3ee4d6b7b101de462
         showTrailer = false;
         currentTrailer = null;
     }
 
-<<<<<<< HEAD
-    let cleanup = () => {};
-
     onMount(async () => {
         const containers = document.querySelectorAll('.videocont');
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            },
-            { threshold: 0.1 }
-        );
+        const animeData = await fetchAnimeImages(containers.length);
 
-        try {
-            const animeData = await fetchAnimeImages(containers.length);
-            
-            containers.forEach((container, index) => {
-                const img = container.querySelector('img');
-                if (animeData[index]) {
-                    img.src = animeData[index].image;
-                    img.title = animeData[index].title;
-                    img.loading = 'lazy';
-                    img.decoding = 'async';
-                    img.width = 300;
-                    img.height = 169;
-                    img.fetchpriority = 'high';
-                    
-                    container.onclick = () => openTrailer(
-                        animeData[index].trailer, 
-                        animeData[index].title
-                    );
-                    
-                    observer.observe(container);
-                }
-            });
-
-            cleanup = () => {
-                containers.forEach(container => {
-                    observer.unobserve(container);
-                    container.onclick = null;
-                });
-                observer.disconnect();
-            };
-        } catch (err) {
-            error = 'Failed to load content';
-            console.error('Mount error:', err);
-        }
+        containers.forEach((container, index) => {
+            const img = container.querySelector('img');
+            if (animeData[index]) {
+                img.src = animeData[index].image;
+                img.title = animeData[index].title;
+                container.onclick = () => openTrailer(
+                    animeData[index].trailer,
+                    animeData[index].title
+                );
+            }
+        });
     });
 
     onDestroy(() => {
-        cleanup();
         cache.clear();
     });
 </script>
@@ -267,55 +128,6 @@
         <div class="error-message">{error}</div>
     {/if}
 
-=======
-    onMount(async () => {
-        const containers = document.querySelectorAll('.videocont');
-        const animeData = await fetchAnimeImages(containers.length);
-
-        containers.forEach((container, index) => {
-            const img = container.querySelector('img');
-            if (animeData[index]) {
-                img.src = animeData[index].image;
-                img.title = animeData[index].title;
-                
-                // Add click handler
-                container.onclick = () => openTrailer(animeData[index].trailer, animeData[index].title);
-            }
-        });
-    });
-</script>
-
-<body>
-    <section>
-        <nav class="navBar">
-            <div class="navBarBrand">
-                <i class="fa-solid fa-code" id="icon"></i>
-            </div>
-            <div class="navBarCenter">
-                <h1 id="title">CodeFlix</h1>
-            </div>
-            <div class="navBarEnd">
-                <a id="contato" href="https://pedrolinks.vercel.app/" target="_blank">Contato</a>
-            </div>
-        </nav>
-        <div class="main">
-            <div class="videocont"><img alt="Anime"></div>
-            <div class="videocont"><img alt="Anime"></div>
-            <div class="videocont"><img alt="Anime"></div>
-            <div class="videocont"><img alt="Anime"></div>
-            <div class="videocont"><img alt="Anime"></div>
-            <div class="videocont"><img alt="Anime"></div>
-            <div class="videocont"><img alt="Anime"></div>
-            <div class="videocont"><img alt="Anime"></div>
-            <div class="videocont"><img alt="Anime"></div>
-            <div class="videocont"><img alt="Anime"></div>
-            <div class="videocont"><img alt="Anime"></div>
-            <div class="videocont"><img alt="Anime"></div>
-        </div>
-    </section>
-
-    <!-- Trailer Modal -->
->>>>>>> b9821e56b7c79d66a69fbdb3ee4d6b7b101de462
     {#if showTrailer}
         <div class="modal-overlay" on:click={closeTrailer}>
             <div class="modal-content" on:click|stopPropagation>
@@ -323,7 +135,6 @@
                 <h2>{currentTitle}</h2>
                 <div class="video-container">
                     <iframe
-<<<<<<< HEAD
                         src="https://www.youtube.com/embed/{currentTrailer}?rel=0&playsinline=1"
                         title="YouTube video player"
                         loading="lazy"
@@ -333,19 +144,11 @@
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen
                         playsinline
-=======
-                        src="https://www.youtube.com/embed/{currentTrailer}"
-                        title="YouTube video player"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen
->>>>>>> b9821e56b7c79d66a69fbdb3ee4d6b7b101de462
                     ></iframe>
                 </div>
             </div>
         </div>
     {/if}
-<<<<<<< HEAD
 </section>
 
 <style lang="scss">
@@ -364,10 +167,4 @@
         0% { background-position: 200% 0; }
         100% { background-position: -200% 0; }
     }
-=======
-</body>
-
-<style lang="scss">
-    
->>>>>>> b9821e56b7c79d66a69fbdb3ee4d6b7b101de462
 </style>
