@@ -195,11 +195,21 @@ section {
         // Don't affect navbar
       
     }
+
+    @media screen and (max-width: 768px) {
+        &:has(.videocont:hover) {
+            .videocont:not(:hover) {
+                filter: none; // Remove blur on mobile
+                transform: none; // Remove scale effect
+                transition-delay: 0s; // Remove delay
+            }
+        }
+    }
 }
 
 .videocont {
     background: $glass-bg;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(4px);
     border-radius: 20px;
     border: 1px solid $glass-border;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -236,6 +246,18 @@ section {
             font-size: 3rem;
             text-shadow: 0 0 10px rgba(0,0,0,0.5);
             opacity: 0.8;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        &:hover ~ .videocont {
+            filter: none; // Remove blur effect
+            transform: none;
+        }
+
+        .main:has(.videocont:hover) .videocont:not(:hover) {
+            filter: none;
+            transform: none;
         }
     }
 }
