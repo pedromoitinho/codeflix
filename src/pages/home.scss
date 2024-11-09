@@ -367,18 +367,3 @@ html {
     from { transform: scale(0.9); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
 }
-@media screen and (hover: none) and (pointer: coarse) {
-    img{
-        pointer-events: none;
-    }
-    #title{
-        pointer-events: none;
-    }
-    #logo{
-        pointer-events:none;
-    }
-    #contato{
-        pointer-events: none;
-    }
-    
-}
