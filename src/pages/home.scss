@@ -20,6 +20,7 @@ $accent-glow: rgba(0, 255, 255, 0.3);
 body {
     margin: 0;
     padding: 0;
+
 }
 
 section {
@@ -31,7 +32,7 @@ section {
         width:100dvw;
     }
     @media screen and (orientation:landscape) and (hover:none) and (pointer: coarse) {
-        height:1200dvh;   
+        height:800dvh;   
     }
     position: relative;
     z-index: 1;
@@ -111,6 +112,7 @@ section {
     text-decoration:none;
     text-transform: uppercase;
     transition: all 0.3s ease;
+    
     @media screen and (max-width:768px){
         font-size:0.8rem;
     }
@@ -133,7 +135,7 @@ section {
     font-size: 1.5rem;
     text-transform: uppercase;
     transition: all 0.3s ease;
-      -webkit-user-drag: none;
+    -webkit-user-drag: none;
     -khtml-user-drag: none;
     -moz-user-drag: none;
     -o-user-drag: none;
@@ -142,7 +144,7 @@ section {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    
+ 
     
     &:hover {
         text-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
@@ -182,10 +184,11 @@ section {
         top:10%;
         left:7.5%;
     }
+   
 
     &:has(.videocont:hover) {
         .videocont:not(:hover) {
-            transition-delay: 0.5s; // Add same delay to blur effect
+            transition-delay: 1.0s; // Add same delay to blur effect
             filter: blur(4px) brightness(0.7);
             transform: scale(0.95);
         }
@@ -218,7 +221,7 @@ section {
     }
     
     &:hover {
-        transition-delay: 0.5s; // Add 1 second delay before hover effect
+        transition-delay: 1.0s; // Add 1 second delay before hover effect
         transform: translateY(-5px);
         box-shadow: 0 15px 30px $shadow-color;
         z-index: 10;
@@ -247,7 +250,7 @@ img {
     backface-visibility: hidden;
     will-change: transform, filter;
     filter: brightness(0.95) contrast(1.1) saturate(1.1);
-      -webkit-user-drag: none;
+    -webkit-user-drag: none;
     -khtml-user-drag: none;
     -moz-user-drag: none;
     -o-user-drag: none;
@@ -256,7 +259,9 @@ img {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    pointer-events: none;
+
+    
+    
     
     &:hover {
         transform: scale(1.2);
@@ -273,6 +278,7 @@ img {
     @media screen and (max-width: 768px) {
         object-fit: cover;
         border-radius: 30px;
+        pointer-events:none;
     }
 }
 
