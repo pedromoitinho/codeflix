@@ -130,6 +130,16 @@ section {
     font-size: 1.5rem;
     text-transform: uppercase;
     transition: all 0.3s ease;
+      -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    
     
     &:hover {
         text-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
