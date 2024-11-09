@@ -5,7 +5,7 @@
 <h3>Tecnologias utilizadas:</h3>
 <ul>
   <li>Svelte</li>
-  <li>RESTs APIs</li>
+  <li>GRAPHQL APIs</li>
   <li>SCSS</li>
   <li>Vite</li>
   <li>HTML, CSS, JAVASCRIPT</li>
