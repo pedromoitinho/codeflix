@@ -8,6 +8,15 @@
     align-items: center;
 }
 
+
+
+@mixin mobile {
+    @media (max-width: 768px), (hover: none) {
+        @content;
+    }
+}
+
+>>>>>>> 913257c (switching api)
 $primary-color: #00ffff; // Bright cyan
 $shadow-color: rgba(0, 0, 0, 0.2);
 $text-stroke: rgba(0, 0, 0, 0.3);
@@ -196,6 +205,7 @@ section {
       
     }
 
+<<<<<<< HEAD
     @media screen and (max-width: 768px) {
         &:has(.videocont:hover) {
             .videocont:not(:hover) {
@@ -205,11 +215,31 @@ section {
             }
         }
     }
+=======
+    @media (hover: none), (max-width: 768px) {
+        &:has(.videocont:hover) {
+            .videocont:not(:hover) {
+                filter: none;
+                transform: none;
+                transition-delay: 0s;
+            }
+        }
+    }
+
+    @include mobile {
+        gap: 1rem;
+        padding: 0.5rem;
+    }
+>>>>>>> 913257c (switching api)
 }
 
 .videocont {
     background: $glass-bg;
+<<<<<<< HEAD
     backdrop-filter: blur(4px);
+=======
+    backdrop-filter: blur(5px);
+>>>>>>> 913257c (switching api)
     border-radius: 20px;
     border: 1px solid $glass-border;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -249,17 +279,52 @@ section {
         }
     }
 
+<<<<<<< HEAD
     @media screen and (max-width: 768px) {
         &:hover ~ .videocont {
             filter: none; // Remove blur effect
             transform: none;
         }
 
+=======
+    @media (hover: none), (max-width: 768px) {
+        &:hover ~ .videocont {
+            filter: none;
+            transform: none;
+        }
+
+        &:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+>>>>>>> 913257c (switching api)
         .main:has(.videocont:hover) .videocont:not(:hover) {
             filter: none;
             transform: none;
         }
     }
+<<<<<<< HEAD
+=======
+
+    @include mobile {
+        border-radius: 12px;
+        animation: none; // Disable entrance animation
+        transform: translateZ(0); // Hardware acceleration
+        -webkit-tap-highlight-color: transparent; // Remove tap highlight
+        
+        &:active {
+            transform: scale(0.98);
+        }
+        
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translateZ(0);
+        }
+    }
+>>>>>>> 913257c (switching api)
 }
 
 img {
@@ -307,6 +372,14 @@ img {
 // Add smooth scrolling
 html {
     scroll-behavior: smooth;
+<<<<<<< HEAD
+=======
+
+    @include mobile {
+        touch-action: manipulation; // Disable double-tap zoom
+        -webkit-text-size-adjust: 100%; // Prevent font scaling
+    }
+>>>>>>> 913257c (switching api)
 }
 
 // Add custom scrollbar
@@ -335,6 +408,27 @@ html {
     align-items: center;
     z-index: 1000;
     animation: fadeIn 0.3s ease;
+<<<<<<< HEAD
+=======
+
+    @include mobile {
+        padding: 0.5rem;
+        
+        .modal-content {
+            width: 100%;
+            margin: 0;
+            border-radius: 12px;
+        }
+        
+        .video-container {
+            border-radius: 8px;
+        }
+        
+        .close-btn {
+            padding: 1rem;
+        }
+    }
+>>>>>>> 913257c (switching api)
 }
 
 .modal-content {
@@ -386,6 +480,24 @@ html {
     }
 }
 
+<<<<<<< HEAD
+=======
+.loading-skeleton {
+    @include mobile {
+        animation-duration: 2s; // Slower animation for better performance
+    }
+}
+
+// Reduce motion for better performance
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
+
+>>>>>>> 913257c (switching api)
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
