@@ -209,7 +209,7 @@ section {
 
 .videocont {
     background: $glass-bg;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(4px);
     border-radius: 20px;
     border: 1px solid $glass-border;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
