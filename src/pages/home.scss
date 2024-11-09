@@ -234,6 +234,16 @@ img {
     backface-visibility: hidden;
     will-change: transform, filter;
     filter: brightness(0.95) contrast(1.1) saturate(1.1);
+      -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    pointer-events: none;
     
     &:hover {
         transform: scale(1.2);
