@@ -195,6 +195,16 @@ section {
         // Don't affect navbar
       
     }
+
+    @media screen and (max-width: 768px) {
+        &:has(.videocont:hover) {
+            .videocont:not(:hover) {
+                filter: none; // Remove blur on mobile
+                transform: none; // Remove scale effect
+                transition-delay: 0s; // Remove delay
+            }
+        }
+    }
 }
 
 .videocont {
@@ -236,6 +246,18 @@ section {
             font-size: 3rem;
             text-shadow: 0 0 10px rgba(0,0,0,0.5);
             opacity: 0.8;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        &:hover ~ .videocont {
+            filter: none; // Remove blur effect
+            transform: none;
+        }
+
+        .main:has(.videocont:hover) .videocont:not(:hover) {
+            filter: none;
+            transform: none;
         }
     }
 }
