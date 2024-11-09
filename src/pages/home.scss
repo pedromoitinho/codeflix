@@ -8,6 +8,7 @@
     align-items: center;
 }
 
+<<<<<<< HEAD
 @mixin mobile {
     @media (max-width: 768px), (hover: none) {
         @content;
@@ -17,6 +18,11 @@
 $primary-color: #00ffff; // Bright cyan
 $shadow-color: rgba(0, 0, 0, 0.3);
 $text-stroke: rgba(0, 0, 0, 0.2);
+=======
+$primary-color: #00ffff; // Bright cyan
+$shadow-color: rgba(0, 0, 0, 0.2);
+$text-stroke: rgba(0, 0, 0, 0.3);
+>>>>>>> b9821e56b7c79d66a69fbdb3ee4d6b7b101de462
 $gradient-start: #1e3050;
 $gradient-end: #0a111c;
 $glass-bg: rgba(255, 255, 255, 0.1);
@@ -202,6 +208,7 @@ section {
       
     }
 
+<<<<<<< HEAD
     @media (hover: none), (max-width: 768px) {
         &:has(.videocont:hover) {
             .videocont:not(:hover) {
@@ -216,11 +223,26 @@ section {
         gap: 1rem;
         padding: 0.5rem;
     }
+=======
+    @media screen and (max-width: 768px) {
+        &:has(.videocont:hover) {
+            .videocont:not(:hover) {
+                filter: none; // Remove blur on mobile
+                transform: none; // Remove scale effect
+                transition-delay: 0s; // Remove delay
+            }
+        }
+    }
+>>>>>>> b9821e56b7c79d66a69fbdb3ee4d6b7b101de462
 }
 
 .videocont {
     background: $glass-bg;
+<<<<<<< HEAD
     backdrop-filter: blur(5px);
+=======
+    backdrop-filter: blur(4px);
+>>>>>>> b9821e56b7c79d66a69fbdb3ee4d6b7b101de462
     border-radius: 20px;
     border: 1px solid $glass-border;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -260,6 +282,7 @@ section {
         }
     }
 
+<<<<<<< HEAD
     @media (hover: none), (max-width: 768px) {
         &:hover ~ .videocont {
             filter: none;
@@ -271,11 +294,20 @@ section {
             box-shadow: none;
         }
 
+=======
+    @media screen and (max-width: 768px) {
+        &:hover ~ .videocont {
+            filter: none; // Remove blur effect
+            transform: none;
+        }
+
+>>>>>>> b9821e56b7c79d66a69fbdb3ee4d6b7b101de462
         .main:has(.videocont:hover) .videocont:not(:hover) {
             filter: none;
             transform: none;
         }
     }
+<<<<<<< HEAD
 
     @include mobile {
         border-radius: 12px;
@@ -294,6 +326,8 @@ section {
             transform: translateZ(0);
         }
     }
+=======
+>>>>>>> b9821e56b7c79d66a69fbdb3ee4d6b7b101de462
 }
 
 img {
@@ -341,11 +375,14 @@ img {
 // Add smooth scrolling
 html {
     scroll-behavior: smooth;
+<<<<<<< HEAD
 
     @include mobile {
         touch-action: manipulation; // Disable double-tap zoom
         -webkit-text-size-adjust: 100%; // Prevent font scaling
     }
+=======
+>>>>>>> b9821e56b7c79d66a69fbdb3ee4d6b7b101de462
 }
 
 // Add custom scrollbar
@@ -374,6 +411,7 @@ html {
     align-items: center;
     z-index: 1000;
     animation: fadeIn 0.3s ease;
+<<<<<<< HEAD
 
     @include mobile {
         padding: 0.5rem;
@@ -392,6 +430,8 @@ html {
             padding: 1rem;
         }
     }
+=======
+>>>>>>> b9821e56b7c79d66a69fbdb3ee4d6b7b101de462
 }
 
 .modal-content {
@@ -443,6 +483,7 @@ html {
     }
 }
 
+<<<<<<< HEAD
 .loading-skeleton {
     @include mobile {
         animation-duration: 2s; // Slower animation for better performance
@@ -458,6 +499,8 @@ html {
     }
 }
 
+=======
+>>>>>>> b9821e56b7c79d66a69fbdb3ee4d6b7b101de462
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
