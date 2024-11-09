@@ -30,6 +30,9 @@ section {
         height:220dvh;
         width:100dvw;
     }
+    @media screen and (orientation:landscape) and (hover:none) and (pointer: coarse) {
+        height:400dvh;   
+    }
     position: relative;
     z-index: 1;
     
