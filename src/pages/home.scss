@@ -1,7 +1,4 @@
-// Import external libraries
-@import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
-
+// Core mixins
 @mixin center {
     display: flex;
     justify-content: center;
@@ -9,55 +6,52 @@
 }
 
 @mixin mobile {
-    @media (max-width: 768px), (hover: none) {
+    @media (max-width: 768px) {
         @content;
     }
 }
 
-$primary-color: #00ffff; // Bright cyan
-$shadow-color: rgba(0, 0, 0, 0.3);
-$text-stroke: rgba(0, 0, 0, 0.2);
+// Essential variables
 $gradient-start: #1e3050;
 $gradient-end: #0a111c;
 $glass-bg: rgba(255, 255, 255, 0.1);
 $glass-border: rgba(255, 255, 255, 0.2);
+$shadow-color: rgba(0, 0, 0, 0.3);
 $accent-glow: rgba(0, 255, 255, 0.3);
 
+// Reset
 body {
     margin: 0;
     padding: 0;
-
 }
 
+// Main layout
 section {
     width: 100vw;
     height: 150vh;
     background: linear-gradient(360deg, $gradient-start, $gradient-end);
-    @media screen and (max-width:768px){
-        height:220dvh;
-        width:100dvw;
-    }
-    @media screen and (orientation:landscape) and (hover:none) and (pointer: coarse) {
-        height:800dvh;   
-    }
     position: relative;
     z-index: 1;
     
+    @include mobile {
+        height: 220dvh;
+        width: 100dvw;
+    }
 }
 
+// Navbar
 .navBar {
     width: 100vw;
     height: 90px;
     position: fixed;
     display: flex;
     justify-content: flex-start;
-    z-index: 1000; // Higher z-index to stay above blur effects
+    z-index: 1000;
     background: rgba(10, 17, 28, 0.8);
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 30px $shadow-color;
     border-bottom: 1px solid $glass-border;
-    transition: all 0.3s ease;
-    animation: slideInDown 0.5s ease-out;
+    transition: background 0.3s ease;
     
     &:hover {
         background-color: rgba($gradient-end, 0.7);
@@ -86,27 +80,28 @@ section {
     &:hover {
         filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.5));
         transform: scale(1.1);
-        
     }
 }
 
 .navBarCenter {
     position: absolute;
-    top: 0%;
+    top: 0;
     left: 45%;
     width: 10%;
     height: 100px;
     @include center;
 }
-.navBarEnd{
-    position:absolute;
-    top:0%;
+
+.navBarEnd {
+    position: absolute;
+    top: 0;
+    right: 10%;
+    width: 10%;
+    height: 100px;
     @include center;
-    right:10%;
-    width:10%;
-    height:100px;
 }
-#contato{
+
+#contato, #title {
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     background: linear-gradient(135deg, #00ffff, #0099ff);
@@ -115,45 +110,19 @@ section {
     text-shadow: 0 0 20px $accent-glow;
     letter-spacing: 2px;
     font-size: 1.5rem;
-    text-decoration:none;
     text-transform: uppercase;
     transition: all 0.3s ease;
+    user-select: none;
+    text-decoration: none;
     
-    @media screen and (max-width:768px){
-        font-size:0.8rem;
+    @include mobile {
+        font-size: 0.8rem;
     }
     
     &:hover {
         text-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
         transform: scale(1.1);
-        cursor:pointer;
-    }
-}
-
-#title {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    background: linear-gradient(135deg, #00ffff, #0099ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 20px $accent-glow;
-    letter-spacing: 2px;
-    font-size: 1.5rem;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-    -webkit-user-drag: none;
-    -khtml-user-drag: none;
-    -moz-user-drag: none;
-    -o-user-drag: none;
-    user-drag: none;
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
- 
-    &:hover {
-        text-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
-        transform: scale(1.02);
+        cursor: pointer;
     }
 }
 
@@ -169,48 +138,20 @@ section {
     gap: 2rem;
     padding: 1rem;
     z-index: 2;
-    background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
     backdrop-filter: blur(10px);
     border: 1px solid $glass-border;
     border-radius: 24px;
     box-shadow: 0 8px 32px $shadow-color;
-    animation: fadeIn 1s ease-out;
-
-    @media screen and (max-width:768px){
-        grid-template-columns: repeat(2,1fr);
-        grid-auto-rows: minmax(100px, auto); 
-        gap:1rem;
-        height: auto; 
-        overflow: visible;
-        top:7.5%;
-        left:5%;
-    }
-    @media screen and (min-width:769px) and (max-width:1000px){
-        top:10%;
-        left:7.5%;
-    }
-
-    &:has(.videocont:hover) {
-        .videocont:not(:hover) {
-            transition-delay: 1.0s; // Add same delay to blur effect
-            filter: blur(4px) brightness(0.7);
-            transform: scale(0.95);
-        }
-    }
-
-    @media (hover: none), (max-width: 768px) {
-        &:has(.videocont:hover) {
-            .videocont:not(:hover) {
-                filter: none;
-                transform: none;
-                transition-delay: 0s;
-            }
-        }
-    }
 
     @include mobile {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: minmax(100px, auto); 
         gap: 1rem;
-        padding: 0.5rem;
+        height: auto; 
+        overflow: visible;
+        top: 7.5%;
+        left: 5%;
     }
 }
 
@@ -219,65 +160,21 @@ section {
     backdrop-filter: blur(5px);
     border-radius: 20px;
     border: 1px solid $glass-border;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.4s ease;
     overflow: hidden;
-    animation: slideInUp 0.6s ease-out;
-    animation-fill-mode: both;
     position: relative;
-    will-change: filter, transform;
     cursor: pointer;
 
-    // When any videocont is hovered, blur all others
-    &:hover ~ .videocont {
-        filter: blur(4px) brightness(0.7);
-    }
-
-    // When parent contains a hovered element, blur non-hovered ones
-    .main:has(.videocont:hover) .videocont:not(:hover) {
-        filter: blur(4px) brightness(0.7);
-    }
-    
     &:hover {
-        transition-delay: 1.0s; // Add 1 second delay before hover effect
         transform: translateY(-5px);
         box-shadow: 0 15px 30px $shadow-color;
         z-index: 10;
-
-        &::after {
-            content: "▶";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 3rem;
-            text-shadow: 0 0 10px rgba(0,0,0,0.5);
-            opacity: 0.8;
-        }
-    }
-
-    @media (hover: none), (max-width: 768px) {
-        &:hover ~ .videocont {
-            filter: none;
-            transform: none;
-        }
-
-        &:hover {
-            transform: none;
-            box-shadow: none;
-        }
-
-        .main:has(.videocont:hover) .videocont:not(:hover) {
-            filter: none;
-            transform: none;
-        }
     }
 
     @include mobile {
         border-radius: 12px;
-        animation: none; // Disable entrance animation
-        transform: translateZ(0); // Hardware acceleration
-        -webkit-tap-highlight-color: transparent; // Remove tap highlight
+        transform: translateZ(0);
+        -webkit-tap-highlight-color: transparent;
         
         &:active {
             transform: scale(0.98);
@@ -295,39 +192,26 @@ section {
 img {
     width: 100%;
     height: 100%;
-    object-fit: cover; // Better aspect ratio handling
+    object-fit: cover;
     border-radius: 16px;
     border: 2px solid rgba($gradient-end, 0.6);
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.5s ease;
     backface-visibility: hidden;
-    will-change: transform, filter;
     filter: brightness(0.95) contrast(1.1) saturate(1.1);
-    -webkit-user-drag: none;
-    -khtml-user-drag: none;
-    -moz-user-drag: none;
-    -o-user-drag: none;
-    user-drag: none;
     user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
 
     &:hover {
         transform: scale(1.2);
         z-index: 999;
         border: 2px solid rgba($gradient-end, 0.8);
-        box-shadow: 
-            0 10px 20px $shadow-color,
-            0 0 30px $accent-glow;
+        box-shadow: 0 10px 20px $shadow-color, 0 0 30px $accent-glow;
         cursor: pointer;
         filter: brightness(1.1) contrast(1.2) saturate(1.2);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
     }
     
-    @media screen and (max-width: 768px) {
-        object-fit: cover;
+    @include mobile {
         border-radius: 30px;
-        pointer-events:none;
+        pointer-events: none;
     }
 }
 
@@ -336,8 +220,8 @@ html {
     scroll-behavior: smooth;
 
     @include mobile {
-        touch-action: manipulation; // Disable double-tap zoom
-        -webkit-text-size-adjust: 100%; // Prevent font scaling
+        touch-action: manipulation;
+        -webkit-text-size-adjust: 100%;
     }
 }
 
@@ -347,13 +231,14 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-    background: rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.1);
 }
 
 ::-webkit-scrollbar-thumb {
     background: linear-gradient(45deg, #00ffff, #0099ff);
     border-radius: 4px;
 }
+
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -366,7 +251,6 @@ html {
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    animation: fadeIn 0.3s ease;
 
     @include mobile {
         padding: 0.5rem;
@@ -395,7 +279,6 @@ html {
     max-width: 800px;
     position: relative;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    animation: scaleIn 0.3s ease;
 
     h2 {
         color: white;
@@ -436,12 +319,6 @@ html {
     }
 }
 
-.loading-skeleton {
-    @include mobile {
-        animation-duration: 2s; // Slower animation for better performance
-    }
-}
-
 // Reduce motion for better performance
 @media (prefers-reduced-motion: reduce) {
     * {
@@ -449,14 +326,4 @@ html {
         transition-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
     }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes scaleIn {
-    from { transform: scale(0.9); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
 }
